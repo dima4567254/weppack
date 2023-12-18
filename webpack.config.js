@@ -1,17 +1,21 @@
 let path = require('path');
-module.exports = {
+module.exports = (env) =>{
   // entry: './src/js/script.js',
-  entry: {
-    main: path.resolve(__dirname, 'src', 'index.js'),//склееваем участки путей}//как указывать несколько файлов
-  },
-  output: {
-    path: path.resolve(__dirname, 'build',),//путь к файлу
-    // filename: 'bundle.js',
-    filename: '[name].[contenthash].js',//ключ к вайлу
-    clean: true//удалить прошлый созданый файл 
-  },
+  return {
+    mode: env.mode ?? 'development',//режим работы вебпака всего 3 стандарт продаксен..development
+    entry: {
+      main: path.resolve(__dirname, 'src', 'index.js'),//склееваем участки путей}//как указывать несколько файлов
+    },
+    output: {
+      path: path.resolve(__dirname, 'build',),//путь к файлу
+      // filename: 'bundle.js',
+      filename: '[name].[contenthash].js',//ключ к вайлу
+      clean: true//удалить прошлый созданый файл 
+    },
+  }
 }
-
+// npm run build:dev не минимизирован
+// npm run build:prod
 // 'use strict';
 
 // let path = require('path');
