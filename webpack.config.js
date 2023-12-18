@@ -1,5 +1,8 @@
 let path = require('path');
-module.exports = (env) =>{
+const HtmlWebpackPlugin = require('html-webpack-plugin');// подключает файл js
+const webpack = require('webpack');//показывает на сколько процентов собрана сборка потом удалить
+
+module.exports = (env) => {
   // entry: './src/js/script.js',
   return {
     mode: env.mode ?? 'development',//режим работы вебпака всего 3 стандарт продаксен..development
@@ -12,8 +15,31 @@ module.exports = (env) =>{
       filename: '[name].[contenthash].js',//ключ к вайлу
       clean: true//удалить прошлый созданый файл 
     },
+    plugins: [//
+      new HtmlWebpackPlugin(
+        // options:
+        {
+          template: path.resolve(__dirname, 'public', 'index.html')//для подключения файла похоже что самому можно js файл вообще не подключать
+        }),
+      new webpack.ProgressPlugin(),
+    ],
+    // plugins: [
+    //   new HtmlWebpackPlugin({
+    //     template: path.join(__dirname, 'public', 'index.html'),
+    //   }),
+    // ],
+    // plugins: [//
+    //   new HtmlWebpackPlugin(
+    //     // options:
+    //     {
+    //       template: path.resolve(__dirname, 'public', 'index.html')
+    //     }),
+    // ],
+    // plugins: [new HtmlWebpackPlugin()],
   }
 }
+
+// 21.26 npm run build:dev не работает
 // npm run build:dev не минимизирован
 // npm run build:prod
 // 'use strict';
